@@ -4,12 +4,13 @@
 
 **Student Email:** hothanhtienqb20092004@gmail.com
 **Name:** Hồ Thành Tiến
+**Student ID:** AI20K-0001
 
 ---
 
 ## Mo ta
 
-(Mo ta ngan gon bai lab va nhung gi ban da lam)
+Bai lab xay dung mot ETL Pipeline tu dong doc du lieu san pham tu file JSON, thuc hien validate (loai bo gia am/bang 0 va category rong), transform (tinh gia giam 10% va chuan hoa category sang Title Case), roi luu ket qua ra CSV. Ngoai ra bai lab con thuc hien Stress Test de quan sat tac dong cua garbage data len ket qua tra loi cua AI Agent.
 
 ---
 
@@ -18,7 +19,7 @@
 ### Prerequisites
 
 ```bash
-pip install pandas
+pip install pandas pytest
 ```
 
 ### Chay ETL Pipeline
@@ -27,10 +28,22 @@ pip install pandas
 python solution.py
 ```
 
+### Tao Garbage Data
+
+```bash
+python generate_garbage.py
+```
+
 ### Chay Agent Simulation (Stress Test)
 
 ```bash
-# Mo ta cach ban chay thi nghiem Clean vs Garbage data
+python agent_simulation.py
+```
+
+### Chay tat ca Tests
+
+```bash
+pytest tests/
 ```
 
 ---
@@ -39,7 +52,11 @@ python solution.py
 
 ```
 ├── solution.py              # ETL Pipeline script
-├── processed_data.csv       # Output cua pipeline
+├── processed_data.csv       # Output cua pipeline (Clean Data)
+├── garbage_data.csv         # Du lieu rac dung de stress test
+├── raw_data.json            # Du lieu nguon
+├── agent_simulation.py      # Agent simulation script
+├── generate_garbage.py      # Script tao garbage data
 ├── experiment_report.md     # Bao cao thi nghiem
 └── README.md                # File nay
 ```
@@ -48,4 +65,16 @@ python solution.py
 
 ## Ket qua
 
-(Tom tat ket qua: bao nhieu records da xu ly, bao nhieu bi loai, v.v.)
+- **Tong so records doc vao:** 5
+- **Records hop le (passed validation):** 3
+- **Records bi loai (dropped):** 2
+  - Record id=3: price = -10 (gia am)
+  - Record id=4: category rong
+- **Output file:** `processed_data.csv` voi cac cot: id, product, price, category, discounted_price, processed_at
+
+### So sanh Clean vs Garbage Data
+
+| Scenario | Ket qua Agent |
+|----------|---------------|
+| Clean Data | "Laptop at $1200" (chinh xac) |
+| Garbage Data | "Nuclear Reactor at $999999" (sai hoan toan) |
