@@ -2,7 +2,7 @@
 ==============================================================
 Day 10 Lab: Build Your First Automated ETL Pipeline
 ==============================================================
-Student ID: AI20K-0001
+Student ID: 2A202600868
 Name: Ho Thanh Tien
 
 Nhiem vu:
